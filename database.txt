@@ -1,0 +1,35 @@
+CREATE DATABASE `secureData`;
+USE `secureData`;
+ 
+CREATE TABLE IF NOT EXISTS `Employee` (
+  `page_id` int(11) NOT NULL AUTO_INCREMENT,
+  `page_title` varchar(255) NOT NULL,
+  `page_desc` text,
+  `meta_keywords` varchar(255) DEFAULT NULL,
+  `meta_desc` varchar(255) DEFAULT NULL,
+  `sort_order` int(11) NOT NULL DEFAULT '0',
+  `parent` varchar(255) NOT NULL DEFAULT '0',
+  `status` enum('A','I') NOT NULL DEFAULT 'A',
+  `page_alias` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`page_id`),
+  UNIQUE KEY `page_name` (`page_alias`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+ 
+CREATE TABLE IF NOT EXISTS `mp_tagline` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tagline1` varchar(255) DEFAULT NULL,
+  `tagline2` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+ 
+INSERT INTO `mp1_tagline` (`id`, `tagline1`, `tagline2`) VALUES
+(1, 'thesoftwareguy.in', 'how to create a simple dynamic website with php and mysql.');
+ 
+INSERT INTO `mp_pages` (`page_id`, `page_title`, `page_desc`, `meta_keywords`, `meta_desc`, `sort_order`, `parent`, `status`, `page_alias`) VALUES
+(1, 'Welcome to my site', 'Hello friends. I have made this dynamic website which you can download for free.', 'tags', 'descsds', 0, '-1', 'A', 'index'),
+(2, 'About Us', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.', 'tags', 'dasdasd', 1, '-1', 'A', 'about-us'),
+(4, 'Contact Us', 'Contact us page', 'dasd', 'asdasd', 3, '-1', 'A', 'contact-us'),
+(9, 'Category', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.', 'category', 'description goes here', 1, '-1', 'A', 'category'),
+(10, 'PHP', 'PHP is a server-side scripting language designed for web development but also used as a general-purpose programming language.', '', '', 1, '9', 'A', 'php'),
+(11, 'Mysql', 'MySQL officially, but also called My Seque is (as of July 2013) the world''s second most widely used open-source relational database management system (RDBMS).', '', '', 2, '9', 'A', 'mysql'),
+(12, 'Ajax', 'Ajax (an acronym for Asynchronous JavaScript and XML) is a group of interrelated web development techniques used on the client-side to create asynchronous web applications.', '', '', 2, '9', 'A', 'ajax');
