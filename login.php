@@ -1,46 +1,22 @@
-<html>
-  
-
-
-</html>
-
-
 <?php
 //$rights = $myPage->getPageAuthorizations();
-$username = $_POST["uname"];
-$password = $_POST["psw"];
+$username = $_POST["name"];
+$password = $_POST["email"];;
 
-
+echo $username;
 
 try
   {
   
-if(var_dump(isset($username, $password))){
+if($username && $password){
 
-  echo "this is true"; n
+  echo "this is true"+$username+$password; 
 }
 else{
-  echo "this is false";
-  echo "you suck!"; 
-}
-
-
-
-
-  
-
-  }
- 
-  
-  
-}
-
-else{
-  $myPage->buildWebPage("NO_STYLE", null, "admissions/unauthorized.tem.php");
-
+  header( 'Location: http://192.168.50.56/secure/login.html' ) ;
 }
 } catch(exception $e) {echo $e->getMessage();}
-
+/*
 function sksort(&$array, $subkey="id", $sort_ascending=false) {
 
     if (count($array))
@@ -120,7 +96,7 @@ function webValues($readers, $team_list, $total_count, $total_queue, $myPage){
 
   /*print('<pre>');
            print_r($team_list);
-  print('</pre>');*/
+  print('</pre>');
 
     $myPage->setWebValue("readers", $readers); 
     $myPage->setWebValue("team_list", $team_list);
@@ -189,7 +165,7 @@ function createIndividualTable($dbApp, $readerId, $readers_select, $readers_all)
   $indTable=$indTable.'<table class="part-table gray-table"><tr><th class="ind-id">Applicants Read</th><th class="ind-name">Also Read by</th><th class="ind-date">Date</th><th class="ind-drop"><i aria-hidden="true" class="arrow fa blue fa-chevron-circle-down"></i></th></tr><tr class="info-row"><td colspan="4"><table class="part-table gray-table">';
   foreach($appRead as $read){
      $appId = $dbApp->getApplicationIdFromPersonId($read['person_id']); 
-    $indTable =$indTable.'<tr><td class="ind-id">'.$appId.'</td><td class="ind-name">John SoandSo'./*$read['read_by'].*/'</td><td class="ind-date">06/10/92'/*.$read['date']*/.'</td><td></td></tr>';
+    $indTable =$indTable.'<tr><td class="ind-id">'.$appId.'</td><td class="ind-name">John SoandSo'./*$read['read_by'].'</td><td class="ind-date">06/10/92'/*.$read['date'].'</td><td></td></tr>';
   }
   $indTable=$indTable."</table></td></tr></table></div>";
   return $indTable;  
@@ -444,5 +420,5 @@ else{
   return $attentionTableCombined; 
 }
 
-
+*/
 ?>

@@ -9,23 +9,15 @@
       <h1 class="black header-select-right" id="reads">Login</h1>
       <div class="gray sub-header">We can almost guarantee security</div>
       <br>
-      <form action="login.php">
+      
 <div class="full-header">
       Please Login
     </div>
-        <div class="container">
-          Username
-          <input class="text-input" type="text" placeholder=" Username" name="uname" required>
-
-         Password
-          <input class="text-input" type="password" placeholder=" Password" name="psw" required>
-
-          <button type="submit">Login</button>
-          <label>
-            <input type="checkbox" checked="checked" name="remember"> Remember me
-          </label>
-        </div>
-      </form>
+        <form action="login.php" method="post">
+User Name: <input type="text" name="name" required><br>
+Password: <input type="password" name="email" required><br>
+<input type="submit">
+</form>
     </div>
   </body>
 </html>
