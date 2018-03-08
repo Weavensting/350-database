@@ -1,4 +1,5 @@
 <?php
+include_once "config.php"; 
 //$rights = $myPage->getPageAuthorizations();
 $username = $_POST["name"];
 $password = $_POST["email"];;
@@ -16,6 +17,9 @@ else{
   header( 'Location: http://192.168.50.56/secure/login.html' ) ;
 }
 } catch(exception $e) {echo $e->getMessage();}
+
+
+
 /*
 function sksort(&$array, $subkey="id", $sort_ascending=false) {
 
