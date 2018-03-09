@@ -4,21 +4,58 @@ include_once "config.php";
 $username = $_POST["name"];
 $password = $_POST["email"];;
 
-echo $username;
 
 try
   {
   
-if($username && $password){
 
-  echo "this is true"+$username+$password; 
+
+
+if($username && $password){
+//echo "this is here" . $username;
+
+ // echo "this is true"+$username+$password; 
+  $person = login($username, $password); 
+  createAdminPage($person['personId'], $person['employee']);
+  
 }
 else{
   header( 'Location: http://192.168.50.56/secure/login.html' ) ;
 }
 } catch(exception $e) {echo $e->getMessage();}
 
+function createAdminPage($personId,  $employee){
+  $firstname=getFirstName($personId, $employee); 
+  print '<div class="wrapper"><img id="logo" src="images/lock-logo1.png"><br><h1 class="gray header-select-left" id="reads">May-B Secure</h1><h1 class="black header-select-right" id="reads">Admin</h1><div class="gray sub-header">Welcome '.$firstname.'</div><br><div class="full-header">Employee</div>';
+    $employeeTable= createEmployeeTable(); 
+    print $employeeTable; 
+    print "<div class='full-header'>Customer</div>";
+    //$customerTable = createCustomerTable(); 
+    //print $customerTable; 
+     print "<div class='full-header'>Products</div>";
+    //$productTable = createProductTable(); 
+   // print $productTable; 
+    print "</div>"; 
 
+}
+
+function createEmployeeTable(){
+  $allEmployee = getAllEmployees(); 
+  print("<pre>");
+  print_r($allEmployee);
+  print("</pre>");
+  $html="<table class='full-table'><tr><th>Name</th><th>Position</th><th>Pay</th><th>Address</th></tr>"; 
+  foreach ($allEmployee as $emp){
+    
+    $html=$html."<tr><td>".$emp['fname']." ".$emp['lname']."</td>"; 
+    $position = getPosition($emp["positionId"]); 
+    $html=$html."<td>".$position['name']."</td>";
+    $html=$html."<td>".$position['wage']."</td>";
+    $html=$html."<td>".$employee['address']."</td></tr>";
+  }
+  $html=$html."</table>"; 
+  return $html;
+}
 
 /*
 function sksort(&$array, $subkey="id", $sort_ascending=false) {
@@ -230,7 +267,7 @@ function getLeaders($allReaders){
 
   }
   else{
-  	$leader=False;
+    $leader=False;
   }
   return $leader; 
 }
@@ -362,7 +399,7 @@ function getAllGl($readers_all, $dbApp, $rights, $userId){
   else{
     $tech_problems =$dbApp->getAllGlProblemsByReader($userId);    
        if(!empty($tech_problems)){
-		sksort($tech_problems, "send_date", False);
+    sksort($tech_problems, "send_date", False);
         foreach($tech_problems as $tech){
           foreach($readers_all as $read){
             if($read['person_id']== $tech['sender_id']){

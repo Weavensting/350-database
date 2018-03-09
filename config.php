@@ -1,33 +1,86 @@
 <?php
-    define('DBUSER','root');
-   define('DBPWD','6(z=n7em,W;uX,[p');
-   define('DBHOST','192.168.50.56');
+    define('DBUSER','query');
+   define('DBPWD','!5@m[~CcK\UVX5DFAD32');
+   define('DBHOST','localhost');
    define('DBNAME','secure');
 
-public function login($username, $password)
+  
+try{
+
+   function login($username, $password)
   {
-    $sql = "SELECT * FROM User WHERE userName=:username and password  = :password";
-    $stmt = $this->conn->prepare_sql($sql);
-    $stmt->bindValue(":password", $password);
-    $stmt->bindValue(":username", $username);
+    $conn = new PDO("mysql:host=".DBHOST.";dbname=".DBNAME, DBUSER, DBPWD);
+$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $sql = "SELECT personId, employee FROM UserNames WHERE username=:username and password  = :password";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(":username", $username);
+    $stmt->bindParam(":password", $password);
     $stmt->execute();
     $student = $stmt->fetch(PDO::FETCH_ASSOC);
     return $student;
   }
-//Employee Functions
-  public function getAllEmployees()
+
+  function getAccess($personId)
   {
+    $conn = new PDO("mysql:host=".DBHOST.";dbname=".DBNAME, DBUSER, DBPWD);
+$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $sql = "SELECT positionId FROM Employee WHERE personId=:personId";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(":personId", $personId);
+    $stmt->execute();
+    $student = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $student;
+  }
+
+
+
+  function getFirstName($personId, $employee){
+    $conn = new PDO("mysql:host=".DBHOST.";dbname=".DBNAME, DBUSER, DBPWD);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    if($employee==1){
+    $sql = "SELECT fname FROM Employee WHERE personId=:personId";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(":personId", $personId);
+    $stmt->execute();
+    $name = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $name["fname"];
+    }
+    else{
+    
+    $sql = "SELECT fname FROM Customer WHERE personId=:personId";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(":personId", $personId);
+    $stmt->execute();
+    $student = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $name["fname"];
+    }
+  }
+//Employee Functions
+  function getPosition($positionId){
+    $conn = new PDO("mysql:host=".DBHOST.";dbname=".DBNAME, DBUSER, DBPWD);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $sql = "SELECT name, wage FROM Position where positionId = :positionId";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(":positionId", $positionId);
+    $stmt->execute();
+    $employee = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $employee;
+  }
+   function getAllEmployees()
+  {
+     $conn = new PDO("mysql:host=".DBHOST.";dbname=".DBNAME, DBUSER, DBPWD);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $sql = "SELECT * FROM Employee";
-    $stmt = $this->conn->prepare_sql($sql);
+    $stmt = $conn->prepare($sql);
     $stmt->execute();
     $employee = $stmt->fetch(PDO::FETCH_ASSOC);
     return $employee;
   }
 
-  public function getEmployeeId($fname, $lname)
+   function getEmployeeId($fname, $lname)
   {
     $sql = "SELECT eId FROM Employee WHERE fname=:fname and lname  = :lname";
-    $stmt = $this->conn->prepare_sql($sql);
+    $stmt = $this->conn->prepare($sql);
     $stmt->bindValue(":fname", $fname);
     $stmt->bindValue(":lname", $lname);
     $stmt->execute();
@@ -35,10 +88,10 @@ public function login($username, $password)
     return $employee;
   }
 
-  public function changeEmployeeInformation($eID, $newFName, $newLName, $newPosition, $newAddress )
+   function changeEmployeeInformation($eID, $newFName, $newLName, $newPosition, $newAddress )
   {
     $sql = "UPDATE Employee SET fname = :newFName, lname = :newLName, position = :newPosition, address = :newAddress  WHERE eID=:eID";
-    $stmt = $this->conn->prepare_sql($sql);
+    $stmt = $this->conn->prepare($sql);
     $stmt->bindValue(":eID", $eID);
     $stmt->bindValue(":newFName", $newFName);
     $stmt->bindValue(":newLName", $newLName);
@@ -48,10 +101,10 @@ public function login($username, $password)
   }
 
 
-  public function addEmployee($eID, $newFName, $newLName, $newPosition, $newAddress )
+   function addEmployee($eID, $newFName, $newLName, $newPosition, $newAddress )
   {
     $sql = "INSERT INTO Employee (fname, lname, position, address) VALUES (:newFName, :newLName, :newPosition, :newAddress)";
-    $stmt = $this->conn->prepare_sql($sql);
+    $stmt = $this->conn->prepare($sql);
     $stmt->bindValue(":newFName", $newFName);
     $stmt->bindValue(":newLName", $newLName);
     $stmt->bindValue(":newPosition", $newPosition);
@@ -61,19 +114,19 @@ public function login($username, $password)
 
 
   //Customer Functions
-  public function getAllCustomers()
+   function getAllCustomers()
   {
     $sql = "SELECT * FROM Customer";
-    $stmt = $this->conn->prepare_sql($sql);
+    $stmt = $this->conn->prepare($sql);
     $stmt->execute();
     $customer = $stmt->fetch(PDO::FETCH_ASSOC);
     return $customer;
   }
 
-   public function changeCustomerInformation($customerID, $newFName, $newLName, $eServiceId, $newAddress )
+    function changeCustomerInformation($customerID, $newFName, $newLName, $eServiceId, $newAddress )
   {
     $sql = "UPDATE Customer SET fname = :newFName, lname = :newLName, eServiceId = :eServiceId, address = :newAddress  WHERE customerID=:customerID";
-    $stmt = $this->conn->prepare_sql($sql);
+    $stmt = $this->conn->prepare($sql);
     $stmt->bindValue(":customerID", $customerID);
     $stmt->bindValue(":newFName", $newFName);
     $stmt->bindValue(":newLName", $newLName);
@@ -83,37 +136,29 @@ public function login($username, $password)
   }
 
 
-	public function changeCustomerInformation($customerID, $newFName, $newLName, $eServiceId, $newAddress )
-  {
-    $sql = "INSERT INTO Customer (fname, lname, eServiceId, address) VALUES (:newFName, :newLName, :eServiceId, :newAddress)";
-    $stmt = $this->conn->prepare_sql($sql);
-    //$stmt->bindValue(":customerID", $customerID);
-    $stmt->bindValue(":newFName", $newFName);
-    $stmt->bindValue(":newLName", $newLName);
-    $stmt->bindValue(":eServiceId", $eServiceId);
-    $stmt->bindValue(":newAddress", $newAddress);
-    $stmt->execute();
-  }
+   
 
   //Product Functions
-  public function getAllProducts()
+   function getAllProducts()
   {
     $sql = "SELECT * FROM Products";
-    $stmt = $this->conn->prepare_sql($sql);
+    $stmt = $this->conn->prepare($sql);
     $stmt->execute();
     $product = $stmt->fetch(PDO::FETCH_ASSOC);
     return $product;
   }
 
-   public function changeProductInformation($productID, $quantity, $price)
+    function changeProductInformation($productID, $quantity, $price)
   {
     $sql = "UPDATE Products SET quantity = :quantity, price = :price  WHERE productID=:productID";
-    $stmt = $this->conn->prepare_sql($sql);
+    $stmt = $conn->prepare($sql);
     $stmt->bindValue(":productID", $productID);
     $stmt->bindValue(":quantity", $quantity);
     $stmt->bindValue(":price", $price);
     $stmt->execute();
   }
+}catch(exception $e) {echo $e->getMessage();}
+
 
 //html_entities
 
