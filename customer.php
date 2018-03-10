@@ -2,7 +2,8 @@
 include_once "config.php"; 
 //$rights = $myPage->getPageAuthorizations();
 $username = $_POST["name"];
-$password = $_POST["email"];;
+$password = $_POST["email"];
+$method = $_POST["method"];
 
 
 try
@@ -17,8 +18,10 @@ if($username && $password){
  // echo "this is true"+$username+$password; 
   $person = login($username, $password); 
 
-
-  createAdminPage($person['personId'], $person['employee'], $username, $password);
+  if($method= "change"){
+    changeCustomer(); 
+  }
+  createAdminPage($person['personId'], $person['employee']);
   
 }
 else{

@@ -1,24 +1,36 @@
 <?php
 include_once "config.php"; 
 //$rights = $myPage->getPageAuthorizations();
-$username = $_POST["name"];
-$password = $_POST["email"];;
+$username = $_POST["username"];
+$password = $_POST["password"];
+$method = $_POST["method"];
+$address = $_POST["address"];
+$position = $_POST["position"];
+$lname = $_POST["lname"];
+$fname = $_POST["fname"];
+$personId = $_POST["personId"];
 
 
 try
   {
-  
 
 
 
-if($username && $password){
+if($username && $password && $fname&& $lname&& $position&& $address){
 //echo "this is here" . $username;
 
  // echo "this is true"+$username+$password; 
   $person = login($username, $password); 
-
-
-  createAdminPage($person['personId'], $person['employee'], $username, $password);
+  $position= getPositionbyName($position); 
+  if($method= "change"){
+   
+   changeEmployee($personId, $fname, $lname, $position['positionId'], $address); 
+   $table = createEmployeeTable(); 
+   echo $table; 
+  }
+  else{
+   addEmployee($fname, $lname, $position['positionId'], $address); 
+  }
   
 }
 else{

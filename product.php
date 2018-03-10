@@ -1,28 +1,42 @@
 <?php
 include_once "config.php"; 
 //$rights = $myPage->getPageAuthorizations();
-$username = $_POST["name"];
-$password = $_POST["email"];;
+$username = $_POST["username"];
+$password = $_POST["password"];
+$method = $_POST["method"];
+$name = $_POST["name"];
+$description = $_POST["description"];
+$sale = $_POST["sale"];
+$price = $_POST["price"];
+$quantity = $_POST["quantity"];
+$id = $_POST["id"];
 
 
 try
   {
-  
 
 
 
-if($username && $password){
+if($username && $password && $method&& $name&& $description&& $sale&& $price&& $quantity){
 //echo "this is here" . $username;
 
  // echo "this is true"+$username+$password; 
   $person = login($username, $password); 
-
-
-  createAdminPage($person['personId'], $person['employee'], $username, $password);
+  if($method== "change"){
+   
+   changeProduct($id, $quantity, $price, $description, $name, $sale); 
+   $table = createProductTable(); 
+  echo $table ;
+  }
+  else{
+  addProduct( $quantity, $price, $description,  $name, $sale); 
+  $table = createProductTable();
+  echo $table ; 
+  }
   
 }
 else{
-  header( 'Location: http://192.168.50.56' ) ;
+  header( 'Location: http://192.168.50.56/' ) ;
 }
 } catch(exception $e) {echo $e->getMessage();}
 

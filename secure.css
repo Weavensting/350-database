@@ -4,6 +4,13 @@
 	margin:0 auto;
 	font-family: "Gotham A", "Gotham B", Helvetica, sans-serif;
 }
+.edit{
+    display:none;
+}
+.red{
+    color:red;
+    cursor:pointer;
+}
 #logo {
     margin-bottom: -2em;
     margin-left: -1.3em;
