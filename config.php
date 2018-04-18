@@ -1,6 +1,6 @@
 <?php
     define('DBUSER','query');
-   define('DBPWD','!5@m[~CcK\UVX5DFAD32');
+   define('DBPWD','LceBQqlBpGMFvsoi');
    define('DBHOST','localhost');
    define('DBNAME','secure');
 
@@ -19,12 +19,16 @@ $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $student = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if($student){
-    	if($student['employee']!=1){
-header( 'Location: http://192.168.50.56' ) ;
-    	}
-    	else{
+      if($student['employee']==0&&$student['personId']){
+        return $student;
+      }
+    	
+    	elseif($student['employee']==1){
     		return $student;
     	}
+      else{
+        header( 'Location: http://192.168.50.56' );
+      }
     	
     }
 
@@ -269,8 +273,9 @@ $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   }
 
   function createAdminPage($personId,  $employee, $username, $password){
+    if ($employee ==1 ){
   $firstname=getFirstName($personId, $employee); 
-  print '<head><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script><script src="secure.js"></script><link href="secure.css" rel="stylesheet" type="text/css"></head><div class="wrapper"><img id="logo" src="images/lock-logo1.png"><br><h1 class="gray header-select-left" id="reads">May-B Secure</h1><h1 class="black header-select-right" id="reads">Admin</h1><div class="gray sub-header">Welcome '.$firstname.'</div><br><div class="full-header">Employee</div><div id="id" data-username="'.$username.'" data-password="'.$password.'">';
+  print '<head><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script><script src="secure.js"></script><link href="secure.css" rel="stylesheet" type="text/css"></head><div class="wrapper"><img id="logo" src="images/lock-logo1.png"><br><h1 class="gray header-select-left" id="reads">May-B Secure</h1><h1 class="black header-select-right" id="reads">Admin</h1><a href="/host-cgi"><h1 class="black header-select-right" id="reads">Customer Panel</h1></a><div class="gray sub-header">Welcome '.$firstname.'</div><br><div class="full-header">Employee</div><div id="id" data-username="'.$username.'" data-password="'.$password.'">';
     $employeeTable= createEmployeeTable(); 
     print $employeeTable; 
     print "<div class='full-header'>Customer</div>";
@@ -286,6 +291,10 @@ $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $reportTable = createReportTable(); 
     print $reportTable; 
     print "</div>"; 
+    }
+    else {
+      header( 'Location: http://192.168.50.56' );
+    }
 
 }
 

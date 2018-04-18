@@ -1,0 +1,45 @@
+{
+  "customerInfo": {
+     "fName": "Cosmo",
+     "lName": "Cougar",
+     "address": { "number":"101", "street": "This is the place", "zipCode":"84001" }
+  },
+  "customerId": "1",
+  "carts": [
+     { "cart": [{ "itemId": 2}, { "itemId": 2}, { "itemId": 3}, { "itemId": 1}], "totalCost":"10", "purchased": 1, "date": "9/12/17" },
+     { "cart": [{ "itemId": 1}, { "itemId": 1}, { "itemId": 3}, { "itemId": 1}],  "totalCost":"10", "purchased": 1, "date": "9/10/15" },
+     { "cart": [{ "itemId": 1}, { "itemId": 2}, { "itemId": 1}, { "itemId": 1}], "totalCost":"10", "purchased": 1, "date": "9/09/15" },
+     { "cart": [{ "itemId": 1}, { "itemId": 3}, { "itemId": 2}, { "itemId": 1}], "totalCost":"10", "purchased": 1, "date": "9/08/15" },
+     { "cart":[{ "itemId": 1}, { "itemId": 3}, { "itemId": 1}, { "itemId": 2}], "totalCost":"10", "purchased": 0, "date": "9/11/15" }
+  ]
+}
+{
+  "customerInfo": {
+     "fName": "Dim",
+     "lName": "Jumper",
+     "address": { "number":"101", "street": "This is the place", "zipCode":"84001" }
+  },
+  "customerId": "2",
+  "carts": [
+     { "cart": [{ "itemId": 2}, { "itemId": 2}, { "itemId": 3}, { "itemId": 1}], "totalCost":"10", "purchased": 1, "date": "9/12/17" },
+     { "cart": [{ "itemId": 1}, { "itemId": 1}, { "itemId": 3}, { "itemId": 1}],  "totalCost":"10", "purchased": 1, "date": "9/10/15" },
+     { "cart": [{ "itemId": 1}, { "itemId": 2}, { "itemId": 1}, { "itemId": 1}], "totalCost":"10", "purchased": 1, "date": "9/09/15" },
+     { "cart": [{ "itemId": 1}, { "itemId": 3}, { "itemId": 2}, { "itemId": 1}], "totalCost":"10", "purchased": 1, "date": "9/08/15" },
+     { "cart":[{ "itemId": 1}, { "itemId": 3}, { "itemId": 1}, { "itemId": 2}], "totalCost":"10", "purchased": 0, "date": "9/11/15" }
+  ]
+}
+{
+  "customerInfo": {
+     "fName": "Swift",
+     "lName": "Grandma",
+     "address": { "number":"101", "street": "This is the place", "zipCode":"84001" }
+  },
+  "customerId": "3",
+  "carts": [
+     { "cart": [{ "itemId": 2}, { "itemId": 2}, { "itemId": 3}, { "itemId": 1}], "totalCost":"10", "purchased": 1, "date": "9/12/17" },
+     { "cart": [{ "itemId": 1}, { "itemId": 1}, { "itemId": 3}, { "itemId": 1}],  "totalCost":"10", "purchased": 1, "date": "9/10/15" },
+     { "cart": [{ "itemId": 1}, { "itemId": 2}, { "itemId": 1}, { "itemId": 1}], "totalCost":"10", "purchased": 1, "date": "9/09/15" },
+     { "cart": [{ "itemId": 1}, { "itemId": 3}, { "itemId": 2}, { "itemId": 1}], "totalCost":"10", "purchased": 1, "date": "9/08/15" },
+     { "cart":[{ "itemId": 1}, { "itemId": 3}, { "itemId": 1}, { "itemId": 2}], "totalCost":"10", "purchased": 0, "date": "9/11/15" }
+  ]
+}

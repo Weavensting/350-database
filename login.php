@@ -11,14 +11,27 @@ try
 
 
 
-if($username && $password){
+if($username && $password ){
 //echo "this is here" . $username;
 
  // echo "this is true"+$username+$password; 
   $person = login($username, $password); 
+  if($person['employee']==0&& $person['personId']){
+    session_start();
+    $_SESSION['username']= $username;
+    $_SESSION['password']=$password ;
+     header( 'Location: http://192.168.50.56/host-cgi' ) ;
+    
+  }
+  elseif($person['employee']==1){
 
+    createAdminPage($person['personId'], $person['employee'], $username, $password);
+    session_start();
+     $_SESSION['username']= $username;
+    $_SESSION['password']=$password ;
+  }
 
-  createAdminPage($person['personId'], $person['employee'], $username, $password);
+  
   
 }
 else{
